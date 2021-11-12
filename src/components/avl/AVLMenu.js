@@ -4,7 +4,6 @@ function AVLMenu(props) {
 	const insertRef = useRef(null)
 	const removeRef = useRef(null)
 	const searchRef = useRef(null)
-	const randomRef = useRef(null)
 
 	const insert = () => {
 		props.insert(insertRef.current.value)
@@ -16,10 +15,6 @@ function AVLMenu(props) {
 
 	const search = () => {
 		props.search(searchRef.current.value)
-	}
-
-	const random = () => {
-		props.random(randomRef.current.value)
 	}
 
 	const clear = () => {
@@ -69,17 +64,6 @@ function AVLMenu(props) {
 					</button>
 				</li>
 				<li>
-					<input
-						placeholder="Node count"
-						type="number"
-						ref={randomRef}
-						onKeyUp={e => {
-							if (e.keyCode === 13) random()
-						}}
-					/>
-					<button onClick={random}>Random</button>
-				</li>
-				<li>
 					<button onClick={clear}>Clear</button>
 				</li>
 
@@ -104,9 +88,6 @@ function AVLMenu(props) {
 							</li>
 						</ul>
 					</div>
-				</li>
-				<li>
-					<button onClick={props.check}>Check</button>
 				</li>
 			</ul>
 		</div>

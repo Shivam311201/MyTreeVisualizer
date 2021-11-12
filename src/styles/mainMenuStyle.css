@@ -1,0 +1,58 @@
+body {
+	position: relative;
+}
+.options{
+	display: flex;
+	justify-content: space-around;
+}
+/* Styling buttons */
+#bst button,
+#avl button{
+	width: 400px;
+	margin-top: 65px;
+	height: 270px;
+	border-radius: 50px;
+	font-size: 50px;
+}
+#bst button:hover {
+		color: #4299e1;
+		text-shadow: 0px -1px 5px #4299e159;
+}
+#avl button:hover {
+		color: #d69e2e;
+		text-shadow: 0px -1px 5px #d69e2e59;
+}
+
+/* Heading style */
+.heading_main {
+	font-size: 50px;
+	margin: 0;
+	color:#61677c;
+}
+
+/* Popup style */
+.list-data {
+	list-style: none;
+}
+
+.list-data li {
+	font-weight: bold;
+}
+
+/* Responsiveness */
+/* // @media screen and (max-width: 800px) {
+// 	#bst,
+// 	#avl{
+// 		width: 350px;
+// 		margin: 20px auto;
+// 	}
+
+// 	#bst button,
+// 	#avl button{
+// 		margin: 0;
+// 		height: 170px;
+// 		font-size: 30px;
+// 		border-radius: 50px;
+// 		width: 100%;
+// 	}
+// } */

@@ -1,0 +1,82 @@
+.tree ul {
+    padding: 0;
+    padding-top: 20px;
+    position: relative;
+    transition: all 0.5s;
+    display: table;
+    margin: 0 auto;
+}
+
+.tree li {
+    float: left;
+    text-align: center;
+    list-style-type: none;
+    position: relative;
+    padding: 10px 1px 0 1px;
+    transition: all 0.5s;
+}
+
+/* Line Styles starts*/
+.tree li::before,
+.tree li::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 50%;
+    border-top: 1px solid #ccc;
+    width: 50%;
+    height: 10px;
+    transition: all 0.5s;
+}
+
+.tree li::after {
+    right: auto;
+    left: 50%;
+    border-left: 1px solid #ccc;
+    border-radius: 5px 0 0 0;
+}
+
+.tree li:last-child::before {
+    border-right: 1px solid #ccc;
+    border-radius: 0 5px 0 0;
+}
+
+.tree ul ul::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    border-left: 1px solid #ccc;
+    width: 0;
+    height: 20px;
+    transition: all 0.5s;
+}
+
+.tree li:first-child::before,
+.tree li:last-child::after {
+    border: 0 none;
+}
+
+/* Node Styles starts*/
+.tree li div {
+    padding: 6px 12px;
+    color: #666;
+    font-family: arial, verdana, tahoma;
+    font-size: 20px;
+    display: inline-block;
+    box-shadow: -5px -5px 20px #fff, 5px 5px 20px #babecc;
+    text-shadow: none;
+    border-radius: 8px;
+    transition: all 0.5s;
+}
+
+
+.tree li div.highlight {
+    color: white;
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #00ff15, 0 0 20px #00ff15, 0 0 25px #00ff15, 0 0 30px #00ff15, 0 0 35px #00ff15;
+}
+
+/* Hover Styles starts */
+li.null div {
+    color: rgba(124, 124, 124, 0.185);
+}

@@ -21,11 +21,7 @@ function MainPopup(props) {
 					Following data structures are visualized:
 					<ul className="list-data">
 						<li>Binary Search Tree</li>
-						<li>Trie</li>
 						<li>AVL Trees</li>
-						<li>Red-Black Trees</li>
-						<li>Min Heap</li>
-						<li>Max Heap.</li>
 					</ul>
 					To learn various visualization features of each section,
 					click on{' '}

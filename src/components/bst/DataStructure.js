@@ -155,35 +155,6 @@ export class Node {
 		this.updateRootHtml()
 	}
 
-	//Changes the html when tree is balanced
-	balanceHtml() {
-		if (!this.left && this.right) {
-			this.htmlRight = this.right.html
-			this.setChildToNull(true)
-		} else if (!this.right && this.left) {
-			this.htmlLeft = this.left.html
-			this.setChildToNull(false)
-		} else if (this.right && this.left) {
-			this.htmlLeft = this.left.html
-			this.htmlRight = this.right.html
-			this.setHtml()
-			this.updateRootHtml()
-		} else {
-			this.htmlLeft = (
-				<li className="null">
-					<div>null</div>
-				</li>
-			)
-
-			this.htmlRight = (
-				<li className="null">
-					<div className="null">null</div>
-				</li>
-			)
-			this.setHtml()
-			this.updateRootHtml()
-		}
-	}
 }
 
 class BST {
@@ -218,16 +189,6 @@ class BST {
 				newNode.parent = node
 				node.insert(newNode, false)
 			} else this.insertNode(node.right, newNode)
-		}
-	}
-
-	//Finding max value
-	findMax(node = this.root) {
-		if (node == null) return node
-		else if (node.right == null) {
-			return node
-		} else {
-			return this.findMax(node.right)
 		}
 	}
 
@@ -280,23 +241,6 @@ class BST {
 		}
 	}
 
-	//Find height
-	height(node = this.root) {
-		if (node === null) return -1
-		let ans
-		ans = this.height(node.left)
-		ans = Math.max(this.height(node.right), ans)
-		return ans + 1
-	}
-
-	//Count number of nodes
-	countNodes(node = this.root) {
-		if (node === null) return 0
-		return (
-			this.countNodes(node.left) + 1 + this.countNodes(node.right)
-		)
-	}
-
 	//BST traversal
 	preorder(list, node = this.root) {
 		if (node !== null) {
@@ -336,132 +280,6 @@ class BST {
 		else return this.search(value, node.right)
 	}
 
-	//Random Tree generator
-	generateRandomBST(num) {
-		let upper = 0
-		let lower = num * 2 + 10
-		let elements = new Set()
-		for (let i = 0; i < num; i++) {
-			let value =
-				Math.floor(Math.random() * (upper - lower + 1)) + lower
-			while (elements.has(value)) {
-				value =
-					Math.floor(Math.random() * (upper - lower + 1)) + lower
-			}
-			elements.add(value)
-			this.insert(value)
-		}
-	}
-
-	//BST Checker
-	//Main Checker function
-	checkBST() {
-		let BSTTypeList = []
-		if (this.isBalanced()) {
-			BSTTypeList.push('Balanced')
-		}
-		if (this.isComplete()) {
-			BSTTypeList.push('Complete')
-		}
-		if (this.isPerfect()) {
-			BSTTypeList.push('Perfect')
-		}
-		if (this.isFull()) {
-			BSTTypeList.push('Full')
-		}
-		return BSTTypeList
-	}
-
-	//Subfunctions
-	//balance
-	isBalanced(node = this.root) {
-		if (node === null) return true
-		let leftH = this.height(node.left)
-		let rightH = this.height(node.right)
-		if (Math.abs(leftH - rightH) <= 1) {
-			return this.isBalanced(node.left) && this.isBalanced(node.right)
-		} else {
-			return false
-		}
-	}
-
-	//complete
-	isComplete() {
-		let totalNodes = this.countNodes()
-		return this.isComplete2(0, totalNodes)
-	}
-	isComplete2(index, totalNodes, node = this.root) {
-		if (node === null) return true
-		else if (index >= totalNodes) return false
-		else {
-			let ans = this.isComplete2(index * 2 + 1, totalNodes, node.left)
-			ans &= this.isComplete2(index * 2 + 2, totalNodes, node.right)
-			return ans
-		}
-	}
-
-	//perfect
-	isPerfect() {
-		if (!this.isFull() || !this.isComplete()) return false
-		return this.isPerfect2()
-	}
-
-	isPerfect2(node = this.root, depth = 0) {
-		if (!node) return true
-		depth++
-		if (!node.right && !node.left) {
-			if (this.leafDepth !== -1 && this.leafDepth !== depth)
-				return false
-			this.leafDepth = depth
-		}
-		return (
-			this.isPerfect2(node.left, depth) &&
-			this.isPerfect2(node.right, depth)
-		)
-	}
-
-	//full
-	isFull(node = this.root) {
-		if (node === null) return true
-		else if (node.left === null && node.right === null) return true
-		else if (node.left !== null && node.right !== null) {
-			let ans
-			ans = this.isFull(node.left)
-			ans &= this.isFull(node.right)
-			return ans
-		} else return false
-	}
-
-	//Balancing BST
-	balance(node = this.root) {
-		this.clearHighlight()
-		let nodes = []
-		this.BSTToArr(node, nodes)
-		let l = nodes.length
-		this.root = null
-		this.makeBST(nodes, 0, l - 1)
-	}
-
-	//Balancing sub functions
-	BSTToArr(node, nodes) {
-		if (node !== null) {
-			this.BSTToArr(node.left, nodes)
-			nodes.push(node)
-			this.BSTToArr(node.right, nodes)
-		}
-	}
-
-	//making BST from array
-	makeBST(nodes, start, end) {
-		if (start > end) {
-			return
-		}
-		let mid = Math.floor((start + end) / 2)
-		this.insert(nodes[mid].value)
-		this.makeBST(nodes, start, mid - 1)
-		this.makeBST(nodes, mid + 1, end)
-	}
-
 	clearHighlight() {
 		if (this.highlighted) {
 			this.highlighted.clearHighlight()
@@ -470,4 +288,4 @@ class BST {
 	}
 }
 
-export default BST
+export default BST;

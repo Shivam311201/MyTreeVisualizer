@@ -292,16 +292,6 @@ class AVL {
 		return node
 	}
 
-	findMax(node = this.root) {
-		if (node == null) {
-			return node
-		} else if (node.right == null) {
-			return node
-		} else {
-			return this.findMax(node.right)
-		}
-	}
-
 	findMin(node = this.root) {
 		if (node == null) {
 			return node
@@ -416,111 +406,6 @@ class AVL {
 		} else if (node.value > value)
 			return this.search(value, node.left)
 		else return this.search(value, node.right)
-	}
-
-	//Random Tree generator
-	generateRandomBST(num) {
-		let upper = 0
-		let lower = num * 2 + 10
-		let elements = new Set()
-
-		for (let i = 0; i < num; i++) {
-			let value =
-				Math.floor(Math.random() * (upper - lower + 1)) + lower
-			while (elements.has(value)) {
-				value =
-					Math.floor(Math.random() * (upper - lower + 1)) + lower
-			}
-			elements.add(value)
-
-			this.insert(value)
-		}
-	}
-
-	//BST Checker
-	//Main Checker function
-	checkBST() {
-		let BSTTypeList = []
-		if (this.isBalanced()) {
-			BSTTypeList.push('Balanced')
-		}
-		if (this.isComplete()) {
-			BSTTypeList.push('Complete')
-		}
-		if (this.isPerfect()) {
-			BSTTypeList.push('Perfect')
-		}
-		if (this.isFull()) {
-			BSTTypeList.push('Full')
-		}
-		return BSTTypeList
-	}
-
-	//Subfunctions
-	//balance
-	isBalanced(node = this.root) {
-		if (node === null) return true
-		let leftH = node.left ? node.left.height : -1
-		let rightH = node.right ? node.right.height : -1
-		if (Math.abs(leftH - rightH) <= 1) {
-			return this.isBalanced(node.left) && this.isBalanced(node.right)
-		} else {
-			return false
-		}
-	}
-
-	//complete
-	isComplete() {
-		let totalNodes = this.countNodes()
-		return this.isComplete2(0, totalNodes)
-	}
-	isComplete2(index, totalNodes, node = this.root) {
-		if (node === null) return true
-		else if (index >= totalNodes) return false
-		else {
-			let ans = this.isComplete2(index * 2 + 1, totalNodes, node.left)
-			ans &= this.isComplete2(index * 2 + 2, totalNodes, node.right)
-			return ans
-		}
-	}
-
-	//perfect EDITED
-	isPerfect() {
-		if (!this.isFull() || !this.isComplete()) return false
-		return this.isPerfect2()
-	}
-
-	isPerfect2(node = this.root, depth = 0) {
-		if (!node) return true
-		depth++
-		if (!node.right && !node.left) {
-			if (this.leafDepth !== -1 && this.leafDepth !== depth)
-				return false
-			this.leafDepth = depth
-		}
-		return (
-			this.isPerfect2(node.left, depth) &&
-			this.isPerfect2(node.right, depth)
-		)
-	}
-
-	//full
-	isFull(node = this.root) {
-		if (node === null) return true
-		else if (node.left === null && node.right === null) return true
-		else if (node.left !== null && node.right !== null) {
-			let ans
-			ans = this.isFull(node.left)
-			ans &= this.isFull(node.right)
-			return ans
-		} else return false
-	}
-
-	countNodes(node = this.root) {
-		if (node === null) return 0
-		return (
-			this.countNodes(node.left) + 1 + this.countNodes(node.right)
-		)
 	}
 
 	//Clears highlight of previously searched nodes
