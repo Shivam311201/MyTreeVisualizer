@@ -1,6 +1,4 @@
-body {
-	position: relative;
-}
+
 .options{
 	display: flex;
 	justify-content: space-around;
@@ -15,12 +13,10 @@ body {
 	font-size: 50px;
 }
 #bst button:hover {
-		color: #4299e1;
-		text-shadow: 0px -1px 5px #4299e159;
+	text-shadow: 0px -1px 5px #4299e159;
 }
 #avl button:hover {
-		color: #d69e2e;
-		text-shadow: 0px -1px 5px #d69e2e59;
+	text-shadow: 0px -1px 5px #d69e2e59;
 }
 
 /* Heading style */

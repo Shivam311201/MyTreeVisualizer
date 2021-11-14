@@ -1,15 +1,15 @@
 import React from 'react'
 export class Node {
 	constructor(value) {
-		this.value = value
-		this.left = null
-		this.right = null
-		this.parent = null
+		this.value = value;
+		this.left = null;
+		this.right = null;
+		this.parent = null;
 		this.htmlLeft = (
 			<li className="null">
 				<div>null</div>
 			</li>
-		)
+		);
 
 		this.htmlRight = (
 			<li className="null">
@@ -181,13 +181,18 @@ class BST {
 				newNode.parent = node;
 				node.insert(newNode, true);
 			} else this.insertNode(node.left, newNode);
-		} else {
+		} else if(newNode.value > node.value){
 			if (node.right === null) {
 				node.right = newNode;
 				newNode.parent = node;
 				node.insert(newNode, false);
 			} else this.insertNode(node.right, newNode);
 		}
+		else {
+			node.addHighlight()
+			this.highlighted = node
+			return
+		};
 	}
 
 	//Finding min value
@@ -270,9 +275,9 @@ class BST {
 
 		if (node === null) return false
 		else if (node.value === value) {
-			node.addHighlight()
-			this.highlighted = node
-			return true
+			node.addHighlight();
+			this.highlighted = node;
+			return true;
 		} else if (node.value > value)
 			return this.search(value, node.left)
 		else return this.search(value, node.right)

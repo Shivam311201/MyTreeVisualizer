@@ -13,6 +13,7 @@ function AVLTree(props) {
 	const [treeHtml, setTreeHtml] = useState()
 	const [delError, setDelError] = useDelError(treeHtml)
 	const [searchError, setSearchError] = useDelError(treeHtml)
+	const [insertError, setInsertError] = useDelError(treeHtml);
 	const [Name, setName] = useState("");
 	const [popup, togglePopup] = usePopup();
     const [list,setList]=useState([]);
@@ -29,21 +30,24 @@ function AVLTree(props) {
 
 	//Insert Function
 	const insert = val => {
-		val = parseInt(val)
-		if (!val) return
-		let tempTree = tree
-		tempTree.insert(val)
-		setTree(tempTree)
-		setTreeHtml(tree.root.html)
+		val = parseInt(val);
+		if (!val&&(val!=0)) return;
+		let tempTree = tree;
+		
+		if (tempTree.search(val)) {
+			setInsertError(true);
+			return;
+		}
+		
+		tempTree.insert(val);
+		setTree(tempTree);
+		setTreeHtml(tree.root.html);
 	}
-	//Random
-	const random = num => {
-		num = parseInt(num)
-		if (num < 0) return
-		let tempTree = new AVL(num)
-		setTree(tempTree)
-		if (num) setTreeHtml(tempTree.root.html)
-		else setTreeHtml(null)
+	//Clear
+	const clear = () => {
+		setTreeHtml(null);
+		setName('');
+		setList([]);
 	}
 	
 	//Remove
@@ -94,20 +98,21 @@ function AVLTree(props) {
 			<button onClick={() => props.statefunc([true,false,false])} className="main-menu-button">Home</button>
 			<AVLMenu
 				insert={insert}
-				remove={remove}
+				delete={remove}
 				search={search}
-				random={random}
+				clear={clear}
 				tree={tree}
 				traversalName={setName}
 				setList={setList}
 				delError={delError ? 'error' : ''}
-			seaError={searchError ? 'error' : ''}
+				seaError={searchError ? 'error' : ''}
+				insError={insertError ? 'error' : ''}
 			/>
 			<div className="traversal">
 				{list.length ? (
 					<ul>
 						{' '}
-						{Name}:
+						{Name}
 						{list.map((item, index) => (
 							<li key={index}>{item}</li>
 						))}

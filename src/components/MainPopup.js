@@ -23,6 +23,7 @@ function MainPopup(props) {
 						<li>Binary Search Tree</li>
 						<li>AVL Trees</li>
 					</ul>
+					<div><b>Note:</b> Duplicate values are not allowed.</div>
 					To learn various visualization features of each section,
 					click on{' '}
 					<Icon
