@@ -13,5 +13,5 @@ Welcome to Tree Visualizer! It is a React application aiming to help visualize v
 - Traversals
 
 ## AVL Tree
-- Same as BST except balancing feature (As it is a self-balancing tree)
+- Same as BST 
 - Heights a displayed in the node
