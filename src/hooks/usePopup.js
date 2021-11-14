@@ -1,13 +1,13 @@
 import { useState } from 'react'
 
 function usePopup() {
-	const [popup, setPopup] = useState(false)
+	const [popup, setPopup] = useState(false);
 	//Toggles Popup
 	const togglePopup = () => {
 		setPopup(!popup)
   }
   
-  return [popup, togglePopup]
+  return [popup, togglePopup];
 }
 
-export default usePopup
+export default usePopup;

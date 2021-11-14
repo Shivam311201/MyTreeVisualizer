@@ -8,12 +8,12 @@ function Menu(props) {
 			</header>
 			<div className="options">
 			<div id="bst">
-				<button onClick={() => props.selector('bst')}>
+				<button onClick={() => props.statefunc([false,true,false])}>
 					Binary Search Tree
 				</button>
 			</div>
 			<div id="avl">
-				<button onClick={() => props.selector('avl')}>
+				<button onClick={() => props.statefunc([false,false,true])}>
 					AVL Tree
 				</button>
 			</div>

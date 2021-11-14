@@ -32,12 +32,12 @@ export class Node {
 		const newHtml = node.html
 
 		if (isLeft) {
-			this.htmlLeft = newHtml
+			this.htmlLeft = newHtml;
 		} else {
-			this.htmlRight = newHtml
+			this.htmlRight = newHtml;
 		}
-		this.setHtml()
-		this.updateRootHtml()
+		this.setHtml();
+		this.updateRootHtml();
 	}
 
 	//Updates HTML for the node
@@ -74,8 +74,7 @@ export class Node {
 				<li className="null">
 					<div>null</div>
 				</li>
-			)
-		}
+			)		}
 		this.setHtml()
 		this.updateRootHtml()
 	}
@@ -102,9 +101,9 @@ export class Node {
 		}
 		this.updateRootHtml()
 	}
-
+		
 	//Removes a node from HTML
-	remove(childrenCondtion) {
+	remove(childrenCondtion) { //means which children is there left or right
 		if (!this.parent) return
 		if (!childrenCondtion) {
 			if (this.parent.left === this) {
@@ -151,7 +150,6 @@ export class Node {
 	//Removes the highlight
 	clearHighlight() {
 		this.setHtml()
-
 		this.updateRootHtml()
 	}
 
@@ -169,26 +167,26 @@ class BST {
 
 	//inserting a new node
 	insert(value) {
-		this.clearHighlight()
-		var newNode = new Node(value)
+		this.clearHighlight();
+		var newNode = new Node(value);
 		if (this.root === null) {
-			this.root = newNode
-		} else this.insertNode(this.root, newNode)
+			this.root = newNode;
+		} else this.insertNode(this.root, newNode);
 	}
 
 	insertNode(node, newNode) {
 		if (newNode.value < node.value) {
 			if (node.left === null) {
-				node.left = newNode
-				newNode.parent = node
-				node.insert(newNode, true)
-			} else this.insertNode(node.left, newNode)
+				node.left = newNode;
+				newNode.parent = node;
+				node.insert(newNode, true);
+			} else this.insertNode(node.left, newNode);
 		} else {
 			if (node.right === null) {
-				node.right = newNode
-				newNode.parent = node
-				node.insert(newNode, false)
-			} else this.insertNode(node.right, newNode)
+				node.right = newNode;
+				newNode.parent = node;
+				node.insert(newNode, false);
+			} else this.insertNode(node.right, newNode);
 		}
 	}
 

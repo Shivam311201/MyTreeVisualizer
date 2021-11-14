@@ -6,7 +6,6 @@ import useDelError from '../../hooks/useDelError'
 import { Icon } from '@iconify/react'
 import questionMarkCircleOutline from '@iconify/icons-eva/question-mark-circle-outline'
 import usePopup from '../../hooks/usePopup'
-import useTraversal from '../../hooks/useTraversal'
 
 function AVLTree(props) {
 	//hooks
@@ -14,8 +13,9 @@ function AVLTree(props) {
 	const [treeHtml, setTreeHtml] = useState()
 	const [delError, setDelError] = useDelError(treeHtml)
 	const [searchError, setSearchError] = useDelError(treeHtml)
-	const [traversalList, traversalDispatch] = useTraversal(tree)
-	const [popup, togglePopup] = usePopup()
+	const [Name, setName] = useState("");
+	const [popup, togglePopup] = usePopup();
+    const [list,setList]=useState([]);
 
 	//Initializing Tree
 	useEffect(() => {
@@ -35,8 +35,6 @@ function AVLTree(props) {
 		tempTree.insert(val)
 		setTree(tempTree)
 		setTreeHtml(tree.root.html)
-		traversalDispatch('clear')
-
 	}
 	//Random
 	const random = num => {
@@ -46,8 +44,6 @@ function AVLTree(props) {
 		setTree(tempTree)
 		if (num) setTreeHtml(tempTree.root.html)
 		else setTreeHtml(null)
-		traversalDispatch('clear')
-
 	}
 	
 	//Remove
@@ -63,7 +59,6 @@ function AVLTree(props) {
 		setTree(tempTree)
 		if (tree.root) setTreeHtml(tree.root.html)
 		else setTreeHtml(null)
-		traversalDispatch('clear')
 
 	}
 
@@ -96,22 +91,24 @@ function AVLTree(props) {
 					/>
 				</button></h1>
 			</header>
-			<button onClick={() => props.selector('menu')} className="main-menu-button">Home</button>
+			<button onClick={() => props.statefunc([true,false,false])} className="main-menu-button">Home</button>
 			<AVLMenu
 				insert={insert}
 				remove={remove}
 				search={search}
 				random={random}
-				traversal={traversalDispatch}
+				tree={tree}
+				traversalName={setName}
+				setList={setList}
 				delError={delError ? 'error' : ''}
 			seaError={searchError ? 'error' : ''}
 			/>
 			<div className="traversal">
-				{traversalList.list.length ? (
+				{list.length ? (
 					<ul>
 						{' '}
-						{traversalList.op}:
-						{traversalList.list.map((item, index) => (
+						{Name}:
+						{list.map((item, index) => (
 							<li key={index}>{item}</li>
 						))}
 					</ul>

@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react'
+import React, { useEffect,useState } from 'react'
 import './styles/App.css'
 import './styles/BSTStyle.css'
 import './styles/popup.css'
@@ -9,42 +9,22 @@ import AVLTree from './components/avl/AVLTree'
 import usePopup from './hooks/usePopup'
 import MainPopup from './components/MainPopup'
 
-const initialState = {
-	menu: true,
-	bst: false,
-	avl: false,
-}
-
-const reducer = (state, action) => {
-	switch (action) {
-		case 'menu':
-			return { ...initialState, menu: true }
-		case 'bst':
-			return { ...initialState, bst: true, menu: false }
-		case 'avl':
-			return { ...initialState, avl: true, menu: false }
-		default:
-			return state
-	}
-}
-
 function App() {
-	const [state, dispatch] = useReducer(reducer, initialState)
-	const [popup, togglePopup] = usePopup()
+	const [state, setState] = useState([true,false,false]);
+	const [popup, togglePopup] = usePopup();
 
 	useEffect(() => {
-			togglePopup()
-	}, [])
+			togglePopup();
+	}, []);
 
 	return (
 		<div className="App">
-			
-			{state.menu && <Menu selector={dispatch} togglePopup={togglePopup}/>}
-			{state.bst && <BSTree selector={dispatch} />}
-			{state.avl && <AVLTree selector={dispatch} />}
+			{(state[0]===true) && <Menu statefunc={setState} />}
+			{(state[1]===true) && <BSTree statefunc={setState} />}
+			{(state[2]===true) && <AVLTree statefunc={setState} />}
 			{popup ? <MainPopup toggle={togglePopup} /> : null}
 		</div>
 	)
 }
 
-export default App
+export default App;

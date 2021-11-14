@@ -6,7 +6,6 @@ import useDelError from '../../hooks/useDelError'
 import { Icon } from '@iconify/react'
 import questionMarkCircleOutline from '@iconify/icons-eva/question-mark-circle-outline'
 import usePopup from '../../hooks/usePopup'
-import useTraversal from '../../hooks/useTraversal'
 
 function BSTree(props) {
 	//hooks
@@ -14,73 +13,74 @@ function BSTree(props) {
 	const [treeHtml, setTreeHtml] = useState();
 	const [delError, setDelError] = useDelError(treeHtml);
 	const [searchError, setSearchError] = useDelError(treeHtml);
-	const [traversalList, traversalDispatch] = useTraversal(tree);
+	const [Name, setName] = useState("");
 	const [popup, togglePopup] = usePopup();
+    const [list,setList]=useState([]);
 
 	//Initializing Tree
 	useEffect(() => {
-		let tempTree = new BST()
-		setTree(tempTree)
+		let tempTree = new BST();
+		setTree(tempTree);
 		return () => {
-			setTree(null)
-			setTreeHtml(null)
+			setTree(null);
+			setTreeHtml(null);
 		}
 	}, [])
 
 	//Insert Function
-	const insert = val => {
-		val = parseInt(val)
-		if (!val) return
-		let tempTree = tree
-		tempTree.insert(val)
-		setTree(tempTree)
-		setTreeHtml(tree.root.html)
-		traversalDispatch('clear')
-
+	const insert = (val) => {
+		val = parseInt(val);
+		if (!val) return;
+		let tempTree = tree;
+		tempTree.insert(val);
+		setTree(tempTree);
+		setTreeHtml(tree.root.html);
+		setName("");
+		setList([]);
 	}
-    const random = num => {
+    const random = (num) => {
 		num = parseInt(num)
-		if (num < 0) return
+		if (num < 0) return;
 		let tempTree = new BST(num)
-		setTree(tempTree)
+		setTree(tempTree);
 
-		if (num) setTreeHtml(tempTree.root.html)
-		else setTreeHtml(null)
-		traversalDispatch('clear')
-
+		if (num) setTreeHtml(tempTree.root.html);
+		else setTreeHtml(null);
+		setName("");
+		setList([]);
 	}
 	//Remove
 	const remove = val => {
 		val = parseInt(val)
-		let tempTree = tree
-		setDelError(false)
+		let tempTree = tree;
+		setDelError(false);
 		if (!tempTree.search(val)) {
-			setDelError(true)
-			return
+			setDelError(true);
+			return;
 		}
-		tempTree.remove(val)
-		setTree(tempTree)
-		if (tree.root) setTreeHtml(tree.root.html)
-		else setTreeHtml(null)
-		traversalDispatch('clear')
-
+		tempTree.remove(val);
+		setTree(tempTree);
+		if (tree.root) setTreeHtml(tree.root.html);
+		else setTreeHtml(null);
+		setName("");
+		setList([]);
 	}
 
 	//Search
 	const search = val => {
 		val = parseInt(val)
-		let tempTree = tree
+		let tempTree = tree;
 
 		setSearchError(false)
 		if (!tempTree.search(val)) {
-			setSearchError(true)
-			return
+			setSearchError(true);
+			return;
 		}
 		
-		tempTree.search(val)
-		setTree(tempTree)
-		if (tree.root) setTreeHtml(tree.root.html)
-		else setTreeHtml(null)
+		tempTree.search(val);
+		setTree(tempTree);
+		if (tree.root) setTreeHtml(tree.root.html);
+		else setTreeHtml(null);
 	}
 
 
@@ -98,7 +98,7 @@ function BSTree(props) {
 					</button>
 				</h1>
 				<button
-					onClick={() => props.selector('menu')}
+					onClick={() => props.statefunc([true,false,false])}
 					className="main-menu-button"
 				>
 					Home
@@ -109,16 +109,18 @@ function BSTree(props) {
 				remove={remove}
 				search={search}
 				random={random}
-				traversal={traversalDispatch}
+				tree={tree}
+				traversalName={setName}
+				setList={setList}
 				delError={delError ? 'error' : ''}
 				seaError={searchError ? 'error' : ''}
 			/>
 			<div className="traversal">
-				{traversalList.list.length ? (
+				{list.length ? (
 					<ul>
 						{' '}
-						{traversalList.op}:
-						{traversalList.list.map((item, index) => (
+						{Name}
+						{list.map((item, index) => (
 							<li key={index}>{item}</li>
 						))}
 					</ul>

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef,useState } from 'react'
 
 function BSTMenu(props) {
 	const insertRef = useRef(null)
@@ -19,7 +19,7 @@ function BSTMenu(props) {
 	const clear = () => {
 		props.random(0)
 	}
-
+	const[traversalList,setTraversal]=useState([]);
 	return (
 		<div className="menu">
 			<ul id="mainBST">
@@ -70,17 +70,32 @@ function BSTMenu(props) {
 					<div className="dropdown-content">
 						<ul>
 							<li>
-								<button onClick={() => props.traversal('inorder')}>
+								<button onClick={() =>{
+									setTraversal([]);
+									props.tree.inorder(traversalList);
+									props.setList(traversalList);
+									props.traversalName("Inorder:");
+									}}>
 									Inorder
 								</button>
 							</li>
 							<li>
-								<button onClick={() => props.traversal('preorder')}>
+								<button onClick={() => {
+									setTraversal([]);
+									props.tree.preorder(traversalList);
+									props.setList(traversalList);
+									props.traversalName("Preorder:");
+									}}>
 									Preorder
 								</button>
 							</li>
 							<li>
-								<button onClick={() => props.traversal('postorder')}>
+								<button onClick={() =>{
+									setTraversal([]);
+									props.tree.postorder(traversalList);
+									props.setList(traversalList);
+									props.traversalName("Postorder:");
+									}}>
 									Postorder
 								</button>
 							</li>
